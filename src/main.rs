@@ -1,4 +1,8 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    error::Error,
+    fs::{File, FileType},
+};
 use std::{env, path::Path};
 use std::{
     fs::OpenOptions,
@@ -6,23 +10,35 @@ use std::{
 };
 
 fn main() {
-    // Read
-
     let them_file = "them.txt";
     let current_dir = env::current_dir().unwrap();
     let them_path = current_dir.join(them_file);
 
-    // And parse
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .open(them_path);
 
+    let data = dict_from_tabbed_file(file.expect("Can't open file"));
+
+    for (key, value) in data {
+        println!("\n\t{}", key);
+        for entry in value {
+            println!("\t\t{}", entry);
+        }
+    }
+}
+
+fn dict_from_tabbed_file(file: File) -> HashMap<String, Vec<String>> {
     let mut deep = 0;
     let mut last_deep = 0;
     let mut initial_deep = -1;
     let mut key: String = String::new();
     let mut data: HashMap<String, Vec<String>> = HashMap::new();
 
-    let lines = lines_from_file(them_path);
+    let lines = lines_from_file(file);
     for line in lines {
-        // Ignore empty lines
         if line.trim().len() <= 0 {
             continue;
         }
@@ -71,24 +87,11 @@ fn main() {
         deep = 0;
     }
 
-    for (key, value) in &data {
-        println!("\n\t{}", key);
-        for entry in value {
-            println!("\t\t{}", entry);
-        }
-    }
+    data
 }
 
-fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
-    let file = OpenOptions::new()
-        .read(true)
-        .write(true)
-        .create(true)
-        .open(filename);
-
-    let buffer = BufReader::new(file.expect("I can't create files."));
-
-    buffer
+fn lines_from_file(file: File) -> Vec<String> {
+    BufReader::new(file)
         .lines()
         .map(|l| l.expect("I can't parse the line."))
         .collect()
