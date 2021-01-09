@@ -1,9 +1,5 @@
-use std::{
-    collections::HashMap,
-    error::Error,
-    fs::{File, FileType},
-};
-use std::{env, path::Path};
+use std::env;
+use std::{collections::HashMap, fs::File};
 use std::{
     fs::OpenOptions,
     io::{BufRead, BufReader},
