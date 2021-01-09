@@ -6,22 +6,21 @@ use std::{
 };
 
 fn main() {
-    // Read the file
+    // Read
 
     let them_file = "them.txt";
     let current_dir = env::current_dir().unwrap();
     let them_path = current_dir.join(them_file);
 
-    let mut data: HashMap<String, Vec<String>> = HashMap::new();
-    let lines = lines_from_file(them_path);
-
-    // Parse the file
+    // And parse
 
     let mut deep = 0;
     let mut last_deep = 0;
     let mut initial_deep = -1;
     let mut key: String = String::new();
+    let mut data: HashMap<String, Vec<String>> = HashMap::new();
 
+    let lines = lines_from_file(them_path);
     for line in lines {
         // Ignore empty lines
         if line.trim().len() <= 0 {
