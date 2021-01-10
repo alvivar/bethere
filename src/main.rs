@@ -21,7 +21,7 @@ fn main() {
     for (key, value) in data {
         println!("\n\t{}", key);
         for entry in value {
-            println!("\t\t{}", entry);
+            println!("\t    {}", entry);
         }
     }
 }
@@ -33,7 +33,11 @@ fn dict_from_tabbed_file(file: File) -> HashMap<String, Vec<String>> {
     let mut key: String = String::new();
     let mut data: HashMap<String, Vec<String>> = HashMap::new();
 
-    let lines = lines_from_file(file);
+    let lines: Vec<String> = BufReader::new(file)
+        .lines()
+        .map(|l| l.expect("I can't parse the line."))
+        .collect();
+
     for line in lines {
         if line.trim().len() <= 0 {
             continue;
@@ -84,11 +88,4 @@ fn dict_from_tabbed_file(file: File) -> HashMap<String, Vec<String>> {
     }
 
     data
-}
-
-fn lines_from_file(file: File) -> Vec<String> {
-    BufReader::new(file)
-        .lines()
-        .map(|l| l.expect("I can't parse the line."))
-        .collect()
 }
