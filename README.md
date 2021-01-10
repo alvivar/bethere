@@ -4,5 +4,6 @@ Experimental unfinished application, that aims to be like a contact list of frie
 
 ### Tech
 
-- I want to use [Druid](https://github.com/linebender/druid), the coolest Rust UI library I have seen.
+- I want to use [Druid](https://github.com/linebender/druid), the coolest Rust UI library I have found.
+- [Chrono](https://github.com/chronotope/chrono) to handle the time.
 - I'm also creating my own config file thing, a simple key/value tabbed file, maybe this is a chance to experiment with creating my own crate library.
