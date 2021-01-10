@@ -1,8 +1,11 @@
 
+    @name
+        @ago
+        @lastContact
+
     Andrés
         4 months ago
         9 of January, 2021
-        Born on 11 of September, 1984
 
     Esteban
         Something
@@ -14,6 +17,8 @@
         Rabobo
 
     Luis
+        Wats
+        Whatever
 
     Paula
 
@@ -24,3 +29,5 @@
     Toño
 
     Bía
+        1 months
+        9 January, 2020
